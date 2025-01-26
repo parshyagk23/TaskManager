@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./auth.module.css";
+import styles from "./Auth.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { register } from "./../../Api/Auth";
