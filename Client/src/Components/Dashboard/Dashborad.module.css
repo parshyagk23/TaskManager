@@ -1,0 +1,116 @@
+.Dash{
+    width: 100vw;
+    height: 76vh;
+    position: fixed;
+    margin-top: 82px;
+}
+.Dash h1{
+    font-family: "Popppins", serif;
+    margin: 0 auto;
+    text-align: center;
+    overflow-x: hidden;
+
+}
+.TaskContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    overflow: hidden;
+    align-items: flex-start;
+    justify-items: center;
+}
+.Task h3{
+    text-align: center;
+    margin: 10px auto;
+}
+.Task{
+    width: 28vw;
+    background: #EEF2F5;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: 1px solid #17A2B8;;
+    
+}
+.tasks{
+    width: 20vw;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin: 10px auto;
+    padding: 10px;
+}
+.tasks p{
+    font-size: 18px;
+    font-family: "Popppins", serif;
+    width: 17vw;
+    margin: 10px auto;
+    text-align: left;
+}
+.taskbtn{
+    display: flex;
+    width: 20vw;
+    justify-content: space-around;
+    gap: 10px;
+    cursor: pointer;
+}
+.taskbtn button,.cardbtn button{    
+    all: unset;
+    width: 70px;
+    padding: 5px;
+    background-color: #17A2B8;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+.taskbtn button:nth-child(2),.cardbtn button:nth-child(2){
+    background-color: #f54028;
+}
+.status{
+    width: 100px;
+    padding: 3px 10px;
+    
+    border-radius: 10px;
+    color: black;
+    font-size: 15px;
+}
+.card{
+    width: 35vw;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    inset: 50% auto auto 50%;
+    background-color: #FFF;
+    border:2px solid #17A2B8;
+
+}
+.card div{
+    width: 28vw;
+    margin:  0px auto;
+    margin-top: 10px;
+}
+.card div label{
+    font-weight: 500;
+    font-size: 15px; 
+    font-family: 'Poppins', sans-serif;   
+}
+.card div textarea{
+    width: 20vw;
+    height: 80px;
+    font-family: 'Poppins', sans-serif;   
+    
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    padding-left: 20px;
+    border: 2px solid black;
+    resize: none;
+}
+.card div p{
+    width: 310px;
+    font-family: 'Poppins', sans-serif;   
+    max-height: 100px;
+    text-align: left;
+    word-wrap: break-word;
+
+}

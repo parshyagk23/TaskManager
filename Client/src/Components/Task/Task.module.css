@@ -1,0 +1,95 @@
+
+.Taskcontainer{
+    width: 44vw;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    inset: 50% auto auto 50%;
+    background-color: #FFF;
+    margin-top: 20px;
+    border:2px solid #17A2B8;
+}
+.Taskcontainer h1{
+    font-family: "Popppins", serif;
+    margin: 20px auto;
+    text-align: center;
+}
+.formContainer{
+    width: 35vw;
+    padding-bottom: 15px;
+    margin:  0  auto;
+}
+
+.formContainer div{
+    display: flex;
+    flex-direction: column;
+    margin: 5px auto;
+    align-items: left;
+    
+}
+.formContainer div label{
+    font-weight: 500;
+    font-size: 15px; 
+    font-family: 'Poppins', sans-serif;   
+}
+.formContainer div div input,
+.formContainer div div textarea,
+.formContainer div div select{
+    width: 400px;
+    font-family: 'Poppins', sans-serif;   
+    height: 30px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    padding-left: 20px;
+    border: 2px solid black;
+}
+.formContainer div div textarea{
+    
+    padding-top: 5px;
+    height: 70px;
+    resize: none;
+}
+.btn div{
+    width: 100px;
+    padding: 5px;
+    border-radius: 12px;
+    background: #17A2B8;
+    margin: 0;
+    color: white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+.btn div button{
+    all: unset;
+}
+.Assign{
+    all: unset;
+    width: 150px;
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 12px;
+    border: 1px solid black;
+    margin: 0;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    
+}
+.Assign p{
+    width: 130px;
+    text-align: center;
+}
+.Assign span{
+    border-radius: 50px;
+    width: 20px;
+    border: 1px solid black;
+    background-color: #CF3636;
+    color: white;
+    cursor: pointer;
+
+}

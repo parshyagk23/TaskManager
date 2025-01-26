@@ -1,0 +1,96 @@
+.navcontainer {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 38px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    top: 0;
+    width: 94vw;
+    position: fixed;
+    background-color: #FFF;
+    border-bottom: 2px solid #17A2B8;
+}
+
+.appname {
+    display: flex;
+    gap: 20px;
+}
+
+.appname h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 25px;
+    text-align: center;
+    font-weight: 600;
+    line-height: 41px;
+    font-family: Single Day, cursive;
+    color: #a09595;
+
+}
+
+.auth {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.register,
+.login {
+    width: 120px;
+    height: 25px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.register {
+    background: #ff7373;
+}
+
+.login {
+    background: #73abff;
+}
+
+.register button,
+.login button {
+    all: unset;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+    color: white;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:550px) {
+    .navcontainer {
+        width: 100vw;
+        padding: 0;
+    }
+
+    .appname h1 {
+        margin-left: 15px;
+        font-size: 20px;
+    }
+
+    .auth {
+        margin-right: 20px;
+    }
+
+
+
+
+}

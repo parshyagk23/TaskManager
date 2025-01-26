@@ -1,0 +1,125 @@
+.authBox {
+    width: 66vw;
+    text-align: center;
+
+}
+
+.title {
+    font-family: "Jomhuria", serif;
+    font-size: 100px;
+    font-weight: 400;
+    line-height: 6vw;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.authbtn {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup,
+.login {
+    width: 200px;
+    height: 37px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+    cursor: pointer;
+
+}
+
+.signup button,
+.login button {
+    all: unset;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+/* auth */
+
+.auth {
+    display: flex;
+    position: absolute;
+    inset: 50% auto auto 50%;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+    border: 1px solid #17A2B8;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.userdata {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin: 20px 0 0px 0;
+}
+
+.auth div label {
+    font-family: 'Popppins', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    color: #474444;
+    width: 112px;
+    text-align: left;
+}
+
+
+
+.auth div input {
+    width: 388px;
+    height: 38px;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid black;
+    background-color: #f4f4f4;
+    outline: none;
+    font-size: 15px;
+    font-family: "poppins", sans-serif;
+    font-weight: 500;
+    line-height: 19px;
+    padding-left: 20px;
+}
+
+.Signbtn,
+.loginbtn {
+    width: 274px;
+    height: 38px;
+    background-color: rgb(102, 212, 102);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.Signbtn button,
+.loginbtn button {
+    all: unset;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+}
+@media (max-width: 550px) {
+    .auth{
+        padding: 15px;
+    }
+    .auth div input{
+        width: 200px;
+    }
+    .auth div label {
+        font-size: 20px;
+        width: 100px;
+    }
+    .Signbtn,
+.loginbtn{
+    width: 200px;
+}
+}
