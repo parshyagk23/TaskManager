@@ -35,7 +35,6 @@ const Card = ({ setSubmitTask, submitTask }) => {
     }
 
   }
-  console.log(submitTask)
   return (
     <section className={styles.card}  >
      {isSubmit&&
