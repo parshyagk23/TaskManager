@@ -4,6 +4,7 @@ import { login } from "./../../Api/Auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../Loader";
 
 const Login = () => {
 
@@ -13,7 +14,7 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState();
-
+  const [loading,setLoading] = useState(false)
   const handleOnchange = (e) => {
     setError(false);
     setLoginData({ ...LoginData, [e.target.id]: e.target.value });
@@ -42,9 +43,10 @@ const Login = () => {
     return isError
   }
   const handleLogin = async () => {
-
+    setLoading(true)
     let isError = HandleError();
     if (isError) {
+      setLoading(false)
       return
     }
     const responce = await login(LoginData);
@@ -52,6 +54,7 @@ const Login = () => {
     if (responce.errormessage === "Invalid Credentials!!") {
       toast.error(responce.errormessage, { position: "top-center" });
       setLoginData({ email: "", password: "" });
+      setLoading(false)
       return;
     }
 
@@ -60,6 +63,7 @@ const Login = () => {
       navigate('/')
     }, 2000);
     toast.success("Login successful", { position: "top-center" });
+    setLoading(false)
   };
 
   return (
@@ -102,6 +106,7 @@ const Login = () => {
         <div onClick={handleLogin} className={styles.loginbtn}>
           <button>Log in</button>
         </div>
+         {loading&&  <Loader />}
       </main>
     </>
   );

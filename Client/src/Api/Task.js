@@ -29,6 +29,7 @@ export const getAllTask = async () => {
 
 export const getTaskByTaskId=async(userId)=>{
     try {
+        const Token = Cookies.get("token");
         axios.defaults.headers.common['Authorization']=Token
         const reqUrl = `${TaskUrl}/task/${userId}`;
         const responce = await axios.get(reqUrl);
@@ -65,6 +66,7 @@ export const UpdateTaskByTaskId=async(id,task)=>{
 }
 export const getTaskAssignedToUser=async(email)=>{
     try {
+        const Token = Cookies.get("token");
         axios.defaults.headers.common['Authorization']=Token
         const reqUrl = `${TaskUrl}/task/user/${email}`;
         const responce = await axios.get(reqUrl);

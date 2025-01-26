@@ -3,7 +3,7 @@ import styles from "./Auth.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { register } from "./../../Api/Auth";
-
+import Loader from "../../Loader";
 const Register = () => {
   const [RegisterData, setRegisterData] = useState({
     username: "",
@@ -12,6 +12,7 @@ const Register = () => {
     isAdmin: false
   });
   const [error, setError] = useState();
+  const [Loading,setLoading]= useState()
 
   const handleOnchange = (e) => {
     setError({ username: "", email: "", password: "" });
@@ -46,8 +47,9 @@ const Register = () => {
     return isError
   }
   const handleRegister = async () => {
-
+    setLoading(true)
     if (HandleError()) {
+      setLoading(false)
       return;
     }
     const responce = await register(RegisterData);
@@ -59,9 +61,11 @@ const Register = () => {
         username: "",
         password: "",
       });
+      setLoading(false)
       return;
     }
     toast.success("Register successful", { position: "top-center" });
+    setLoading(false)
     setRegisterData({
       email: "",
       username: "",
@@ -131,6 +135,7 @@ const Register = () => {
         <div onClick={handleRegister} className={styles.loginbtn}>
           <button>Register</button>
         </div>
+        {Loading &&<Loader/>}
       </main>
     </>
   );

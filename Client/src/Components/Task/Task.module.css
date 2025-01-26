@@ -36,7 +36,7 @@
 .formContainer div div input,
 .formContainer div div textarea,
 .formContainer div div select{
-    width: 400px;
+    width: 33vw;
     font-family: 'Poppins', sans-serif;   
     height: 30px;
     border-radius: 10px;
