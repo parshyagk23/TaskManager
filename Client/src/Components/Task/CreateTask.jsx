@@ -8,13 +8,12 @@ import Cookies from "js-cookie";
 const CreateTask = () => {
 
   const {state} = useLocation()
-  console.log(state.edit)
   const navigate = useNavigate()
   const [UserData, setUserData] = useState()
   const [TaskData, setTaskData] = useState({
     title: state?.task?.title || '', 
     description: state?.task?.description || '', 
-    user: state.task?.user || [], 
+    user: state?.task?.user || [], 
     dueDate: state?.task?.dueDate.substring(0,10) || ''
   });
   const [Error, setError] = useState({
@@ -149,7 +148,7 @@ const CreateTask = () => {
           </div>
           <div className={styles.btn} style={{ flexDirection: 'row', justifyContent: 'space-evenly' }} >
             <div onClick={() => HandleAddTask()} >
-              <button> {state.edit?'Update':'Save'}</button>
+              <button> {state?.edit?'Update':'Save'}</button>
             </div>
 
           </div>
