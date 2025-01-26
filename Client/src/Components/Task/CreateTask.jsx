@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
 import styles from './Task.module.css'
 import { getAllUser } from "../../Api/Auth";
-import { AddTask } from "../../Api/Task";
+import { AddTask,UpdateTaskByTaskId } from "../../Api/Task";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import { use } from "react";
 const CreateTask = () => {
 
-  const isAdmin = Cookies.get('isAdmin')
+  const {state} = useLocation()
+  console.log(state.edit)
   const navigate = useNavigate()
   const [UserData, setUserData] = useState()
   const [TaskData, setTaskData] = useState({
-    title: '', description: '', user: [], dueDate: ''
+    title: state?.task?.title || '', 
+    description: state?.task?.description || '', 
+    user: state.task?.user || [], 
+    dueDate: state?.task?.dueDate.substring(0,10) || ''
   });
   const [Error, setError] = useState({
     title: '', description: '', user: '', dueDate: ''
   });
+  const isAdmin = Cookies.get('isAdmin')
+  
   const HandleAllUserData = async () => {
     const responce = await getAllUser()
     setUserData(responce.data)
@@ -35,18 +40,17 @@ const CreateTask = () => {
   }
   const handleAssignTaskToUser = (e) => {
     if (e.target.value === "") return
-
-    if (TaskData.user.includes({ userId: e.target.value })) {
-      return alert("user already assigned")
+    if (TaskData.user.some((user)=>user.email === e.target.value )) {
+      setError({ userExist:<p style={{ color: 'red', fontSize: '12px' }} >user Already Exist</p> })
+      return 
     }
+    setError("")
     const newuser = [...TaskData.user, { email: e.target.value }];
     setTaskData({ ...TaskData, user: newuser })
-
-
     return
   }
   const handleRemoveTaskFromUser = (email) => {
-
+    setError("")
     const index = UserData?.findIndex((user) => user.email === email)
     const UpdateUser = TaskData.user.filter((val) => val?.email !== UserData[index].email);
     setTaskData({ ...TaskData, user: UpdateUser })
@@ -76,6 +80,15 @@ const CreateTask = () => {
   }
   const HandleAddTask = async () => {
     if (HandleError()) return
+    if(state?.edit){
+      const res = await UpdateTaskByTaskId(state.task._id,TaskData)
+      console.log(res)
+      if (res?.message) {
+        toast.success(res.message, { position: 'top-center' })
+        setTaskData({ title: '', description: '', user: [], dueDate: '' })
+      }
+      return
+    }
     const res = await AddTask(TaskData)
     if (res?.message) {
       toast.success(res.message, { position: 'top-center' })
@@ -117,6 +130,7 @@ const CreateTask = () => {
               {Error.user}
             </div>
           </div>
+            
           <div style={{ flexDirection: 'row', gap: '5px' }} >
             {TaskData?.user?.map((val, index) => (
               <button key={index} className={styles.Assign}  >
@@ -126,6 +140,7 @@ const CreateTask = () => {
             ))}
           </div>
           <div>
+          {Error?.userExist}
             <label htmlFor="dueDate">DueDate</label>
             <div>
               <input type="date" name="dueDate" id="dueDate" value={TaskData.dueDate} onChange={(e) => handleOnchange(e)} />
@@ -134,7 +149,7 @@ const CreateTask = () => {
           </div>
           <div className={styles.btn} style={{ flexDirection: 'row', justifyContent: 'space-evenly' }} >
             <div onClick={() => HandleAddTask()} >
-              <button>Save</button>
+              <button> {state.edit?'Update':'Save'}</button>
             </div>
 
           </div>

@@ -51,7 +51,7 @@ export const DeleteTaskByTaskId=async(taskid,indexid)=>{
         
     }
 }
-export const UpdateTaskByTaskId=async(task)=>{
+export const UpdateTaskByTaskId=async(id,task)=>{
     try {
         axios.defaults.headers.common['Authorization']=Token
         const reqUrl = `${TaskUrl}/task/${id}`;

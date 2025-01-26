@@ -1,9 +1,10 @@
 import React from 'react'
 import styles from './Dashborad.module.css';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask,setSubmitTask,borders }) => {
   let isAdmin = Cookies.get('isAdmin')
-
+  const navigate = useNavigate()
 
   return (
     <>
@@ -29,7 +30,8 @@ const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask,setSubmitTask,b
                   <p>status:  <span style={{ border:user?.status==='Rejected'?'2px solid red': borders,color:user?.status==='Rejected'?'red':colr }} className={styles.status} >{user?.status}</span></p>
                   {taskStatus === 'Pending' && isAdmin === 'true' ? (
                     <div className={styles.taskbtn} >
-                      <button>Edit</button>
+                     <button onClick={()=>{
+                      navigate('/task',{state:{ task,edit:true}})} }  >Edit</button>
                       <button onClick={() => handleDeleteTask(task._id, user._id)} >Delete</button>
                     </div>) : (
                     <>
