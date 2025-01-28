@@ -18,7 +18,7 @@ const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask, setSubmitTask,
           ) : (
             <section style={{ height: '67vh', overflowY: 'scroll' }} >
               {Taskdata?.map((task) => (
-                task.user.map((user, index) => (
+                task?.user?.map((user, index) => (
                   <div key={index} className={styles.tasks} >
                     <p> <span>Title:</span> {task?.title}</p>
                     <p>Assgin to:</p>
@@ -26,8 +26,8 @@ const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask, setSubmitTask,
                     <div>
                       <p>{user?.email}</p>
                     </div>
-                    <p>dueDate :<span>{task?.dueDate.substring(0, 10)}</span></p>
-                    {user.status !== "Pending" && <p>Submitted At: <span>{user?.submittedAt.substring(0, 10)}</span></p>}
+                    <p>dueDate :<span>{task?.dueDate?.substring(0, 10)}</span></p>
+                    {user.status !== "Pending" && <p>Submitted At: <span>{user?.submittedAt?.substring(0, 10)}</span></p>}
                     <p>status:  <span style={{ border: user?.status === 'Rejected' ? '2px solid red' : borders, color: user?.status === 'Rejected' ? 'red' : colr }} className={styles.status} >{user?.status}</span></p>
                     {taskStatus === 'Pending' && isAdmin === 'true' ? (
                       <div className={styles.taskbtn} >
