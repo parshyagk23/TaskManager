@@ -18,7 +18,8 @@ a{
 
 .loader {
     display: flex;
-    width: 23vw;    
+    /* width: 23vw;   */
+    /* height: 23vh;   */
     padding-bottom: 8px;
     
    

@@ -12,19 +12,23 @@ const Dashboard = () => {
   const [SubmittedData, setSubmittedData] = useState()
   const [ApprovedData, setApprovedData] = useState()
   const [submitTask, setSubmitTask] = useState()
+  const [loading, setLoading] = useState(false)
 
   const email = Cookies.get("email");
   const isAdmin = Cookies.get("isAdmin")
   const userId = Cookies.get("userId");
   const getTaskData = async () => {
     try {
+      setLoading(true)
       if (isAdmin === 'true') {
         const res = await getTaskByTaskId(userId);
         SetTask(res.data);
+        setLoading(false)
       } else {
         const res = await getTaskAssignedToUser(email);
         if (res.errormessage === "Task not assigned") return
         SetTask(res.data)
+        setLoading(false)
       }
     } catch (error) {
     }
@@ -96,10 +100,10 @@ const Dashboard = () => {
         <h1>Tasks</h1>
 
         <section className={styles.TaskContainer}  >
-          <TaskCard taskStatus='Pending' borders='2px solid #FFEB3B' colr='#FFEB3B' Taskdata={PendingData} handleDeleteTask={handleDeleteTask} setSubmitTask={setSubmitTask} />
-          <TaskCard taskStatus='Submitted' borders='2px solid #03A9F4' colr="#03A9F4" Taskdata={SubmittedData} setSubmitTask={setSubmitTask} />
-          <TaskCard taskStatus='Approved' borders='2px solid #4CAF50' colr="#4CAF50" Taskdata={ApprovedData} />
-          {submitTask && <Card setSubmitTask={setSubmitTask} submitTask={submitTask} />}
+          <TaskCard taskStatus='Pending' borders='2px solid #FFEB3B' colr='#FFEB3B' Taskdata={PendingData} handleDeleteTask={handleDeleteTask} setSubmitTask={setSubmitTask} loading={loading} />
+          <TaskCard taskStatus='Submitted' borders='2px solid #03A9F4' colr="#03A9F4" Taskdata={SubmittedData} setSubmitTask={setSubmitTask} loading={loading} />
+          <TaskCard taskStatus='Approved' borders='2px solid #4CAF50' colr="#4CAF50" Taskdata={ApprovedData} loading={loading}/>
+          {submitTask && <Card setSubmitTask={setSubmitTask} submitTask={submitTask}  />}
         </section>
       </div>
     </>

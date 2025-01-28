@@ -2,9 +2,11 @@ import React from 'react'
 import styles from './Dashborad.module.css';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask, setSubmitTask, borders }) => {
+const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask, setSubmitTask, borders,loading }) => {
   let isAdmin = Cookies.get('isAdmin')
   const navigate = useNavigate()
+ 
+ 
 
   return (
     <>
@@ -13,7 +15,8 @@ const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask, setSubmitTask,
           <h3>{taskStatus}</h3>
           {Taskdata?.length == 0 ? (
             <div style={{ textAlign: 'center' }} >
-              <h4>task not found</h4>
+              <h4 style={{marginBottom:'10px'}} >task not found</h4>
+              {loading &&<h3>Loading...</h3>}
             </div>
           ) : (
             <section style={{ height: '67vh', overflowY: 'scroll' }} >

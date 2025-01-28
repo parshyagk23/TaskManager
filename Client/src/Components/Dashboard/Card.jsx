@@ -8,11 +8,13 @@ const Card = ({ setSubmitTask, submitTask }) => {
   const [Error, setError] = useState(false)
   const [isSubmit, setisSubmit] = useState()
   const [isApproved, setIsApproved] = useState(false)
+  const [loading, setLoading] = useState(false)
   const onHandlechange = (e) => {
     setSubmittedDetails(e.target.value)
   }
 
   const SubmitTask = async () => {
+    setLoading(true)
 
     if (submittedDetails === "") {
       setError(true)
@@ -24,25 +26,28 @@ const Card = ({ setSubmitTask, submitTask }) => {
       setTimeout(() => {
         setSubmitTask(false)
       }, 1000);
+      setLoading(false)
     }
   }
   const HandleIsApproved = async (val) => {
+    setLoading(true)
     setIsApproved(val)
     const res = await ApproveUserTask(submitTask.taskId, submitTask.userId, val)
     if (res.message) {
       setisSubmit(res.message)
+      setLoading(false)
 
     }
 
   }
   return (
     <section className={styles.card}  >
-     {isSubmit&&
-      <div>
-      <p style={{ color: 'green' }} >{isSubmit}</p>
-    </div>
-     }
-      <div style={{marginBottom:'20px'}} >
+      {isSubmit &&
+        <div>
+          <p style={{ color: 'green' }} >{isSubmit}</p>
+        </div>
+      }
+      <div style={{ marginBottom: '20px' }} >
         <label htmlFor="">Title:</label>
         <p>{submitTask?.title}</p>
       </div>
@@ -65,16 +70,23 @@ const Card = ({ setSubmitTask, submitTask }) => {
         </div>
       )}
       {isAdmin == "true" ? (
-        <div className={styles.cardbtn} style={{ display: 'flex', gap: '40px', justifyContent: 'center', marginBottom:'20px' }} >
-          <button onClick={() => {HandleIsApproved(true) }} > Approved</button>
-          <button onClick={() => {HandleIsApproved(false) }} >Reject</button>
+        <div>
+
+        <div className={styles.cardbtn} style={{ display: 'flex', gap: '40px', justifyContent: 'center', marginBottom: '20px' }} >
+          <button onClick={() => { HandleIsApproved(true) }} > Approved</button>
+          <button onClick={() => { HandleIsApproved(false) }} >Reject</button>
           <button onClick={() => setSubmitTask(false)} >Cancel</button>
+        </div>
+        {loading&&<h4 style={{textAlign:'center', margin:'10px 0'}} >Loading....</h4>}
+
         </div>) : (
-        <div className={styles.cardbtn} style={{ display: 'flex', gap: '40px', justifyContent: 'center', marginBottom:'20px' }} >
-          <button onClick={() => SubmitTask()} >
-            Submit
-          </button>
-          <button onClick={() => setSubmitTask(false)} >Cancel</button>
+        <div  >
+
+          <div className={styles.cardbtn} style={{ display: 'flex', gap: '40px', justifyContent: 'center', marginBottom: '20px' }} >
+            <button onClick={() => SubmitTask()} > Submit</button>
+            <button onClick={() => setSubmitTask(false)} >Cancel</button>
+          </div>
+          {loading&&<h4 style={{textAlign:'center', margin:'10px 0'}} >Loading....</h4>}
         </div>)}
 
     </section>
