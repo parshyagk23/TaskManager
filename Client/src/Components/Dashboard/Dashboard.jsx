@@ -15,21 +15,24 @@ const Dashboard = () => {
   const [submitTask, setSubmitTask] = useState()
   const [loading, setLoading] = useState(false)
   const UserInfo = useContext(UserContext)
-
   const [UserData, setUserData] = useState(UserInfo)
+  console.log(UserData)
   const GetTask = async () => {
     setLoading(true)
     const Id = Cookies.get("userId")
-    if (UserInfo?.isAdmin == true) {
-      const res = await getTaskByTaskId(Id);
-      SetTask(res.data);
-      setLoading(false)
-    } else {
-      const res = await getTaskAssignedToUser(UserInfo?.email);
-      if (res.errormessage === "Task not assigned") return
-      SetTask(res.data)
-      setLoading(false)
+    if(UserData){
+      if (UserData?.isAdmin == true) {
+        const res = await getTaskByTaskId(Id);
+        SetTask(res.data);
+        setLoading(false)
+      } else {
+        const res = await getTaskAssignedToUser(UserData?.email);
+        if (res.errormessage === "Task not assigned") return
+        SetTask(res.data)
+        setLoading(false)
+      }
     }
+   
   }
   const filterData = () => {
     const pendingData = [];
@@ -69,8 +72,6 @@ const Dashboard = () => {
     setApprovedData(approvedData);
   };
 
-
-
   const handleDeleteTask = async (TaskId, indexId) => {
     const res = await DeleteTaskByTaskId(TaskId, indexId)
     let toastS;
@@ -92,7 +93,7 @@ const Dashboard = () => {
   
   useEffect(()=>{
     GetTask()
-  },[submitTask, setSubmitTask, SetTask])
+  },[submitTask, setSubmitTask, SetTask,UserData])
   
   useEffect(() => {
     filterData()
