@@ -16,7 +16,6 @@ const ProtectRoute = ({Component}) => {
         if (token && isTokenExpired(token)) {
             Cookies.remove('token');
             Cookies.remove('userId');
-            Cookies.remove('userName');
             return
         }
         return token
@@ -24,7 +23,7 @@ const ProtectRoute = ({Component}) => {
     const isLoggedIn=checkAndRemoveToken();
   return (
     <div>
-      {isLoggedIn ?<Component/>:<Navigate to='/login' />}
+      {isLoggedIn ?<Component />:<Navigate to='/login' />}
     </div>
   )
 }

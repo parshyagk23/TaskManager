@@ -46,7 +46,7 @@ const Navbar = ({UserName,isAdmin,setLogedIn}) => {
                                 <button>Login </button>
                             </Link></>) : (
                         <>
-                            {isAdmin==='true' &&
+                            {isAdmin &&
                                 <Link to='/task' className={styles.register}>
                                     <button>Create Task</button>
                                 </Link>

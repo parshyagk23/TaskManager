@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import styles from './Task.module.css'
 import { getAllUser } from "../../Api/Auth";
 import { AddTask, UpdateTaskByTaskId } from "../../Api/Task";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
-import Cookies from "js-cookie";
 import Loader from "../../Loader";
+import { UserContext } from "../../useContext";
 const CreateTask = () => {
 
   const { state } = useLocation()
@@ -21,7 +21,9 @@ const CreateTask = () => {
     title: '', description: '', user: '', dueDate: ''
   });
   const [Loading, setLoading] = useState(false)
-  const isAdmin = Cookies.get('isAdmin')
+  
+  const UserInfo = useContext(UserContext)
+  const isAdmin = UserInfo?.isAdmin
 
   const HandleAllUserData = async () => {
     const responce = await getAllUser()
@@ -31,10 +33,10 @@ const CreateTask = () => {
     HandleAllUserData()
   }, [])
   useEffect(() => {
-    if (isAdmin !== 'true') {
+    if (!isAdmin) {
       navigate('/')
     }
-  })
+  },[])
 
   const handleOnchange = (e) => {
     setTaskData({ ...TaskData, [e.target.name]: e.target.value })
