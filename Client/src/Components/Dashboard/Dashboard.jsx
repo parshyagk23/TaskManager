@@ -16,7 +16,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false)
   const UserInfo = useContext(UserContext)
   const [UserData, setUserData] = useState(UserInfo)
-  console.log(UserData)
   const GetTask = async () => {
     setLoading(true)
     const Id = Cookies.get("userId")
