@@ -5,8 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../Loader";
-
-const Login = () => {
+const Login = ({setLogedIn}) => {
 
   const navigate = useNavigate()
   const [LoginData, setLoginData] = useState({
@@ -15,6 +14,7 @@ const Login = () => {
   });
   const [error, setError] = useState();
   const [loading,setLoading] = useState(false)
+  
   const handleOnchange = (e) => {
     setError(false);
     setLoginData({ ...LoginData, [e.target.id]: e.target.value });
@@ -57,7 +57,7 @@ const Login = () => {
       setLoading(false)
       return;
     }
-
+    setLogedIn(true)
     setLoginData({ email: "", password: "" });
     setTimeout(() => {
       navigate('/')
@@ -103,8 +103,8 @@ const Login = () => {
             <p style={{ color: 'red' }} >{error?.password}</p>
           </div>
         </div>
-        <div onClick={handleLogin} className={styles.loginbtn}>
-          <button>Log in</button>
+        <div style={loading?{opacity:'0.5'} :{} }  onClick={handleLogin} className={styles.loginbtn}  >
+          <button disabled={loading} >Log in</button>
         </div>
          {loading&&  <Loader />}
       </main>

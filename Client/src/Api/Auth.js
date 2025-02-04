@@ -6,10 +6,7 @@ export const login = async ({ email, password }) => {
     const reqUrl = `${AuthUrl}/auth/login`;
     const responce = await axios.post(reqUrl, { email, password });  
     Cookies.set("token", responce.data.token);
-    Cookies.set("userName", responce.data.username);
     Cookies.set("userId", responce.data._id);
-    Cookies.set("email", responce.data.email);
-    Cookies.set("isAdmin", responce.data.isAdmin);
     return responce?.data;
   } catch (error) {
     return error?.response?.data;

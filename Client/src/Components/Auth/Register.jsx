@@ -132,8 +132,8 @@ const Register = () => {
           <label   htmlFor="" style={{fontSize:"15px",width:'150px' }}> Register As Admin</label>
           <input type="checkbox" name="" id="" style={{width:'15px'}} checked={RegisterData.isAdmin}  onChange={(e)=>setRegisterData({...RegisterData,isAdmin:e.target.checked})} />
         </div>
-        <div onClick={handleRegister} className={styles.loginbtn}>
-          <button>Register</button>
+        <div style={Loading?{opacity:'0.5'} :{} }  onClick={handleRegister} className={styles.loginbtn}>
+          <button disabled={Loading} >Register</button>
         </div>
         {Loading &&<Loader/>}
       </main>

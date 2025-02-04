@@ -155,8 +155,8 @@ const CreateTask = () => {
             </div>
           </div>
           <div className={styles.btn} style={{ flexDirection: 'row', justifyContent: 'space-evenly' }} >
-            <div onClick={() => HandleAddTask()} >
-              <button> {state?.edit ? 'Update' : 'Save'}</button>
+            <div style={Loading?{opacity:'0.5'}:{}}  onClick={() => HandleAddTask()} >
+              <button disabled={Loading} > {state?.edit ? 'Update' : 'Save'}</button>
             </div>
 
           </div>

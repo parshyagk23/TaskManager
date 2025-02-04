@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { getTaskByTaskId, getTaskAssignedToUser } from '../../Api/Task'
-import Cookies from 'js-cookie';
 import TaskCard from './TaskCard';
 import styles from './Dashborad.module.css';
 import Card from './Card';
 import { DeleteTaskByTaskId } from '../../Api/Task';
 import { ToastContainer, toast } from 'react-toastify';
+import { UserContext } from '../../useContext';
+import Cookies from 'js-cookie';
 const Dashboard = () => {
   const [task, SetTask] = useState()
   const [PendingData, setPendingData] = useState()
@@ -13,39 +14,36 @@ const Dashboard = () => {
   const [ApprovedData, setApprovedData] = useState()
   const [submitTask, setSubmitTask] = useState()
   const [loading, setLoading] = useState(false)
+  const UserInfo = useContext(UserContext)
 
-  const email = Cookies.get("email");
-  const isAdmin = Cookies.get("isAdmin")
-  const userId = Cookies.get("userId");
-  const getTaskData = async () => {
-    try {
-      setLoading(true)
-      if (isAdmin === 'true') {
-        const res = await getTaskByTaskId(userId);
-        SetTask(res.data);
-        setLoading(false)
-      } else {
-        const res = await getTaskAssignedToUser(email);
-        if (res.errormessage === "Task not assigned") return
-        SetTask(res.data)
-        setLoading(false)
-      }
-    } catch (error) {
+  const [UserData, setUserData] = useState(UserInfo)
+  const GetTask = async () => {
+    setLoading(true)
+    const Id = Cookies.get("userId")
+    if (UserInfo?.isAdmin == true) {
+      const res = await getTaskByTaskId(Id);
+      SetTask(res.data);
+      setLoading(false)
+    } else {
+      const res = await getTaskAssignedToUser(UserInfo?.email);
+      if (res.errormessage === "Task not assigned") return
+      SetTask(res.data)
+      setLoading(false)
     }
   }
   const filterData = () => {
     const pendingData = [];
     const submittedData = [];
     const approvedData = [];
-    const currentDate = new Date(); 
+    const currentDate = new Date();
 
     task?.forEach((data) => {
-      const taskDueDate = new Date(data.dueDate); 
+      const taskDueDate = new Date(data.dueDate);
 
       if (taskDueDate < currentDate) {
         data.user?.forEach((user) => {
           if (user.status !== "Approved" && user.status !== "Rejected") {
-            
+
             if (!user.submittedAt) {
               user.status = "Rejected";
             } else {
@@ -85,9 +83,17 @@ const Dashboard = () => {
     }, 1500);
   }
   useEffect(() => {
-    getTaskData()
 
-  }, [submitTask, setSubmitTask, SetTask])
+    if (UserInfo?.isAdmin !== undefined) {
+      setUserData(UserInfo);
+     
+    }
+  }, [UserInfo]);
+  
+  useEffect(()=>{
+    GetTask()
+  },[submitTask, setSubmitTask, SetTask])
+  
   useEffect(() => {
     filterData()
   }, [task])
@@ -100,10 +106,10 @@ const Dashboard = () => {
         <h1>Tasks</h1>
 
         <section className={styles.TaskContainer}  >
-          <TaskCard taskStatus='Pending' borders='2px solid #FFEB3B' colr='#FFEB3B' Taskdata={PendingData} handleDeleteTask={handleDeleteTask} setSubmitTask={setSubmitTask} loading={loading} />
-          <TaskCard taskStatus='Submitted' borders='2px solid #03A9F4' colr="#03A9F4" Taskdata={SubmittedData} setSubmitTask={setSubmitTask} loading={loading} />
-          <TaskCard taskStatus='Approved' borders='2px solid #4CAF50' colr="#4CAF50" Taskdata={ApprovedData} loading={loading}/>
-          {submitTask && <Card setSubmitTask={setSubmitTask} submitTask={submitTask}  />}
+          <TaskCard isAdmin={UserInfo?.isAdmin} taskStatus='Pending' borders='2px solid #FFEB3B' colr='#FFEB3B' Taskdata={PendingData} handleDeleteTask={handleDeleteTask} setSubmitTask={setSubmitTask} loading={loading} />
+          <TaskCard isAdmin={UserInfo?.isAdmin} taskStatus='Submitted' borders='2px solid #03A9F4' colr="#03A9F4" Taskdata={SubmittedData} setSubmitTask={setSubmitTask} loading={loading} />
+          <TaskCard isAdmin={UserInfo?.isAdmin} taskStatus='Approved' borders='2px solid #4CAF50' colr="#4CAF50" Taskdata={ApprovedData} loading={loading} />
+          {submitTask && <Card isAdmin={UserInfo?.isAdmin} setSubmitTask={setSubmitTask} submitTask={submitTask} />}
         </section>
       </div>
     </>

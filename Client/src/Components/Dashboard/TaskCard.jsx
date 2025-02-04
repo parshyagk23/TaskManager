@@ -1,12 +1,9 @@
 import React from 'react'
 import styles from './Dashborad.module.css';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask, setSubmitTask, borders,loading }) => {
-  let isAdmin = Cookies.get('isAdmin')
+const TaskCard = ({isAdmin, taskStatus, Taskdata, colr, handleDeleteTask, setSubmitTask, borders,loading }) => {
+  
   const navigate = useNavigate()
- 
- 
 
   return (
     <>
@@ -30,9 +27,9 @@ const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask, setSubmitTask,
                       <p>{user?.email}</p>
                     </div>
                     <p>dueDate :<span>{task?.dueDate?.substring(0, 10)}</span></p>
-                    {user.status !== "Pending" && <p>Submitted At: <span>{user?.submittedAt?.substring(0, 10)}</span></p>}
+                    {user.status !== "Pending" && <p>Submitted At: <span>{user?.submittedAt?user?.submittedAt?.substring(0, 10):'Not Submitted'}</span></p>}
                     <p>status:  <span style={{ border: user?.status === 'Rejected' ? '2px solid red' : borders, color: user?.status === 'Rejected' ? 'red' : colr }} className={styles.status} >{user?.status}</span></p>
-                    {taskStatus === 'Pending' && isAdmin === 'true' ? (
+                    {taskStatus === 'Pending' && isAdmin ? (
                       <div className={styles.taskbtn} >
                         <button onClick={() => {
                           navigate('/task', { state: { task, edit: true } })
@@ -54,7 +51,7 @@ const TaskCard = ({ taskStatus, Taskdata, colr, handleDeleteTask, setSubmitTask,
                           </div>}
                       </>
                     )}
-                    {taskStatus === 'Submitted' && isAdmin === 'true' &&
+                    {taskStatus === 'Submitted' && isAdmin  &&
                       <div onClick={() =>
                         setSubmitTask(
                           {

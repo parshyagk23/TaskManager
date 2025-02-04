@@ -70,10 +70,7 @@ const loginUser = async (req, res) => {
     );
     res.status(200).json({
       message: "User Login SuccessFully",
-      username: UserDetails?.username,
       _id: UserDetails?._id,
-      isAdmin: UserDetails?.isAdmin,
-      email: UserDetails?.email,
       token,
     });
   } catch (error) {
@@ -92,7 +89,7 @@ const getuser = async (req, res) => {
         errormessage: "Bad request",
       });
     }
-    const UserDetails = await User.findById({ _id: id });
+    const UserDetails = await User.findById({ _id: id }).select("-password");
 
     if (!UserDetails) {
       return res.status(404).json({

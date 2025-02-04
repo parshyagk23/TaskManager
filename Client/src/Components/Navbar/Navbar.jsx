@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
-const Navbar = () => {
+const Navbar = ({UserName,isAdmin,setLogedIn}) => {
     const navigate = useNavigate()
-    const userName = Cookies.get("userName");
     const [isLoggedIn, setisLoggedIn] = useState();
-    const isAdmin = Cookies.get("isAdmin");
+    
 
     useEffect(() => {
         if (Cookies.get("token")) {
@@ -18,9 +17,8 @@ const Navbar = () => {
 
     const handleLogout = () => {
         Cookies.remove("token");
-        Cookies.remove("userName");
         Cookies.remove("userId");
-        Cookies.remove("isAdmin");
+        setLogedIn(false)
         setisLoggedIn(false);
         navigate('/login')
     };
@@ -31,7 +29,7 @@ const Navbar = () => {
                 <div style={{ textDecoration: "none", color: 'black', }} > <div className={styles.appname}>
                     {isLoggedIn ? (
                         <>
-                        <h1>Hello {userName}</h1>
+                        <h1>Hello {UserName}</h1>
                         <h1>Welcome to Task manager</h1>
                         </>
                         ) : (<h1>Welcome to Task manager</h1>)}
